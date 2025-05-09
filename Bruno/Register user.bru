@@ -1,0 +1,23 @@
+meta {
+  name: Register user
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{HOST}}/api/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": null,
+    "name": "Juan",
+    "lastName": "Polo",
+    "dni": "dni",
+    "email": "email",
+    "companyName": "Shifter",
+    "password": "1234"
+  }
+}
