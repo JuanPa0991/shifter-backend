@@ -17,8 +17,10 @@ public class TurnController {
     TurnController (TurnService turnService) {this.turnService=turnService;}
 
     @PostMapping("/turn")
-    public ResponseEntity<Void> createTurn(@RequestBody TurnDTO createTurnDTO) {
-        turnService.createTurn(createTurnDTO);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<TurnDTO> createTurn(@RequestBody TurnDTO createTurnDTO) {
+
+        return ResponseEntity.ok(turnService.createTurn(createTurnDTO));
     }
 }
+
+

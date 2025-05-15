@@ -1,0 +1,18 @@
+meta {
+  name: Create Group
+  type: http
+  seq: 5
+}
+
+post {
+  url: {{HOST}}/api/group
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": null,
+    "name": "grupo"
+  }
+}
