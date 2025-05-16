@@ -22,4 +22,6 @@ public class TurnDTO {
     private String userName;
     private String initHour;
     private String endHour;
+    private Long userId;
+    private Long groupId;
 }

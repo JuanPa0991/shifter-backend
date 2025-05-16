@@ -14,7 +14,7 @@ public class TurnService {
         this.turnRepository = turnRepository;
     }
 
-    public void createTurn (TurnDTO createTurnDTO) {
+    public TurnDTO createTurn (TurnDTO createTurnDTO) {
         turnRepository.findByInitDateAndEndDateAndUserName(
                 createTurnDTO.getInitDate(),
                 createTurnDTO.getEndDate(),
@@ -26,6 +26,8 @@ public class TurnService {
 
         Turn turnMapped = TurnMapper.toEntity((createTurnDTO));
         Turn saved = turnRepository.save(turnMapped);
+
+        return TurnMapper.toDTO(saved);
 
 
     }

@@ -13,7 +13,7 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity (name="turn")
+@Entity (name="turns")
 public class Turn {
 
     @Id
