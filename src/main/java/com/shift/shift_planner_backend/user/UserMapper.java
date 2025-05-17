@@ -2,6 +2,10 @@ package com.shift.shift_planner_backend.user;
 
 import com.shift.shift_planner_backend.register.model.RegisterRequest;
 import com.shift.shift_planner_backend.user.model.User;
+import com.shift.shift_planner_backend.user.model.UserDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserMapper {
     
@@ -17,4 +21,25 @@ public class UserMapper {
         .password(registerRequest.getPassword())
         .build();
     }
+
+
+    public static UserDTO toDTO(User user) {
+        return UserDTO.builder()
+                .id(user.getId())
+                .name(user.getName())
+                .lastName(user.getLastName())
+                .companyName(user.getCompanyName())
+                .dni(user.getDni())
+                .email(user.getEmail())
+                .build();
+    }
+
+    public static List<UserDTO> toDTOs(List<User> users) {
+        List<UserDTO> dtos = new ArrayList<>(users.size());
+        for (User user : users) {
+            dtos.add(toDTO(user));
+        }
+        return dtos;
+    }
 }
+
