@@ -1,0 +1,22 @@
+meta {
+  name: Create user
+  type: http
+  seq: 8
+}
+
+post {
+  url: {{HOST}}/api/userNormal
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": null,
+    "name": "erd",
+    "lastName": "Polo",
+    "dni": "dni",
+    "email": "emailusernormal",
+    "companyName": "Shifter"
+  }
+}
