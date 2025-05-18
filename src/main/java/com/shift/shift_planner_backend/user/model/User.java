@@ -46,4 +46,7 @@ public class User {
     @Column(name = "password", nullable = false, length = 100)
     String password;
 
+    @Column(name = "isAdmin", nullable = false, length = 100)
+    Boolean isAdmin;
+
 }

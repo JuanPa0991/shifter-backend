@@ -62,12 +62,15 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-	
-   <dependency>
-     <groupId>io.gitlab.simpay-artefactory.auth</groupId>
-     <artifactId>ms-auth-client</artifactId>
-     <version>1.0.1</version>
-   </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.gitlab.simpay-artefactory.auth</groupId>
+			<artifactId>ms-auth-client</artifactId>
+			<version>1.0.1</version>
+		</dependency>
  </dependencies>
 
 	<build>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a TurboMaster S.L.</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 1px solid #dcdcdc;
+        }
+        .email-header {
+            background-color: #1a7331; /* Verde corporativo */
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .email-body {
+            padding: 20px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .email-body p {
+            margin: 10px 0;
+        }
+        .email-body .temporary-password {
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #e8f5e9; /* Verde claro */
+            color: #1a7331;
+            padding: 10px;
+            border: 1px solid #d4e7d5;
+            border-radius: 4px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .email-footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+            color: #777777;
+            background-color: #f9f9f9;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #1a7331; /* Verde corporativo */
+            color: #ffffff;
+            padding: 10px 20px;
+            margin: 20px 0;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #145924; /* Verde más oscuro */
+        }
+        @media (max-width: 600px) {
+            .email-container {
+                width: 100%;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-header">
+        <h1>Bienvenido a TurboMaster S.L.</h1>
+    </div>
+    <div class="email-body">
+        <p>Hola,</p>
+        <p>Nos alegra darte la bienvenida a <strong>TurboMaster S.L.</strong>. A continuación, te proporcionamos tus credenciales para acceder a nuestra plataforma:</p>
+        <p><strong>Correo electrónico:</strong> {{USER_MAIL}}</p>
+        <p class="temporary-password">Contraseña temporal: {{TEMP_PASSWORD}}</p>
+        <p>Para comenzar, por favor haz clic en el botón de abajo e inicia sesión con las credenciales proporcionadas. Tendras que cambiar la contraseña una vez que inicies sesión.</p>
+        <p style="text-align: center;">
+            <a href="{{TOOL_URL}}/login" class="btn">Iniciar Sesión</a>
+        </p>
+        <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>
+    </div>
+</div>
+</body>
+</html>
