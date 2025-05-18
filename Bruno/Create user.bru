@@ -5,7 +5,7 @@ meta {
 }
 
 post {
-  url: {{HOST}}/api/userNormal
+  url: {{HOST}}/api/user
   body: json
   auth: none
 }
@@ -13,10 +13,11 @@ post {
 body:json {
   {
     "id": null,
-    "name": "erd",
+    "name": "qwer",
     "lastName": "Polo",
     "dni": "dni",
     "email": "emailusernormal",
-    "companyName": "Shifter"
+    "companyName": "Shifter",
+    "isAdmin": false
   }
 }
