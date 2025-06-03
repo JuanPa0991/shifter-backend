@@ -1,0 +1,20 @@
+meta {
+  name: Get UsersById
+  type: http
+  seq: 9
+}
+
+get {
+  url: {{HOST}}/api/user/byGroup?groupId=2
+  body: json
+  auth: none
+}
+
+params:query {
+  groupId: 2
+}
+
+body:json {
+  
+  
+}

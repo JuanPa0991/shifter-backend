@@ -25,4 +25,10 @@ public class UserController {
         List<UserDTO> dtos = userService.findAllDTOs();
         return ResponseEntity.ok(dtos);
     }
+
+    @GetMapping ("/user/byGroup")
+    public ResponseEntity<List<UserDTO>> findUsersByGroup (@RequestParam Long groupId){
+        List<UserDTO>dtos = userService.findByGroupId(groupId);
+        return ResponseEntity.ok(dtos);
+    }
 }

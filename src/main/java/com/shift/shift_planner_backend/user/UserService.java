@@ -16,11 +16,11 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final EmailService emailService;
+    //private final EmailService emailService;
 
     public UserService(UserRepository userRepository, EmailService emailService) {
         this.userRepository = userRepository;
-        this.emailService=emailService;
+        //this.emailService=emailService;
     }
 
 
@@ -32,7 +32,7 @@ public class UserService {
             throw new RuntimeException("Ya existe un usuario con ese mail");
         });
 
-        User userMapped = UserMapper.toEntity(userDTO);
+        User userMapped = UserMapper.toEntity(userDTO); // se pasa el modelo dto a entidad
            String randomPassword = Utils.generateRandomString(12);
            userMapped.setPassword(randomPassword);
 
@@ -44,9 +44,9 @@ public class UserService {
             put("USER_MAIL", userDTO.getEmail());
         }};
 
-        emailService.sendTemplateEmail(EmailTemplate.USER_CREATED, userDTO.getEmail(), "Bienvenido a TurnoMaster!", mailReplaces);
+        //emailService.sendTemplateEmail(EmailTemplate.USER_CREATED, userDTO.getEmail(), "Bienvenido a TurnoMaster!", mailReplaces);
 
-        return UserMapper.toDTO(saved);
+        return UserMapper.toDTO(saved); //se pasa de entidad a dto
     }
 
     public List<UserDTO> findAllDTOs() {
@@ -54,5 +54,10 @@ public class UserService {
         List<User> users = new ArrayList<>();
         iterable.forEach(users::add);
         return UserMapper.toDTOs(users);
+    }
+
+    public List<UserDTO> findByGroupId (Long groupId) {
+        List<User>users = userRepository.findByGroupId(groupId);
+        return  UserMapper.toDTOs(users);
     }
 }

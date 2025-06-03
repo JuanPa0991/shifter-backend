@@ -49,4 +49,7 @@ public class User {
     @Column(name = "isAdmin", nullable = false, length = 100)
     Boolean isAdmin;
 
+    @Column(name = "groupId", nullable = false, length = 100)
+    Long groupId;
+
 }

@@ -33,6 +33,7 @@ public class UserMapper {
                 .dni(userDTO.getDni())
                 .id(userDTO.getId())
                 .email(userDTO.getEmail())
+                .groupId(userDTO.getGroupId())
                 .isAdmin(userDTO.getIsAdmin())
                 .build();
     }
@@ -46,6 +47,7 @@ public class UserMapper {
                 .companyName(user.getCompanyName())
                 .dni(user.getDni())
                 .email(user.getEmail())
+                .groupId(user.getGroupId())
                 .isAdmin(user.getIsAdmin())
                 .build();
     }
