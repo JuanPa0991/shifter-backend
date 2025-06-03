@@ -19,6 +19,7 @@ public class UserDTO {
     private String email;
     private String companyName;
     private Boolean isAdmin;
+    private Long groupId;
 
 
 }
