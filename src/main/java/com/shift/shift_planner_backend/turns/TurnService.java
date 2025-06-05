@@ -3,11 +3,14 @@ package com.shift.shift_planner_backend.turns;
 
 import com.shift.shift_planner_backend.turns.model.Turn;
 import com.shift.shift_planner_backend.turns.model.TurnDTO;
+import com.shift.shift_planner_backend.turns.model.TurnFilterDTO;
+import com.shift.shift_planner_backend.turns.specifications.TurnSpecification;
 import com.shift.shift_planner_backend.user.UserRepository;
 import com.shift.shift_planner_backend.user.UserService;
 import com.shift.shift_planner_backend.user.model.User;
 import com.shift.shift_planner_backend.user.model.UserDTO;
 import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +62,21 @@ public class TurnService {
 
         return turns.stream().map(TurnMapper::toDTO).collect(Collectors.toList());
     }
+
+    public List<TurnDTO> filterTurns(TurnFilterDTO filter) {
+        /*Llama al repositorio con la especificación generada en TurnSpecification,
+         aplicando los filtros dinámicos definidos por el usuario.*/
+        List<Turn> results = turnRepository.findAll(TurnSpecification.filterBy(filter));
+
+        /* Convierte cada entidad Turn obtenida de la base de datos en un objeto TurnDTO
+        para devolver una lista apta para enviar al frontend.*/
+        return results.stream()
+                .map(TurnMapper::toDTO) // Aplica la conversión entidad -> DTO
+                .collect(Collectors.toList()); // Recolecta todo en una lista
+    }
+
+
+
 
 
     //public List<TurnDTO> createTurnsByUsers(List<Long> userIds, TurnDTO turnData) {
