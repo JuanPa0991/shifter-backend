@@ -1,6 +1,4 @@
 package com.shift.shift_planner_backend.turns;
-
-
 import com.shift.shift_planner_backend.turns.model.Turn;
 import com.shift.shift_planner_backend.turns.model.TurnDTO;
 import com.shift.shift_planner_backend.turns.model.TurnFilterDTO;
@@ -10,11 +8,11 @@ import com.shift.shift_planner_backend.user.UserService;
 import com.shift.shift_planner_backend.user.model.User;
 import com.shift.shift_planner_backend.user.model.UserDTO;
 import org.springframework.stereotype.Service;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TurnService {
@@ -48,20 +46,20 @@ public class TurnService {
 
     }
 
-    public List<TurnDTO> createTurnsByGroup(Long groupId, TurnDTO turnData) {
-        List<UserDTO> usersInGroup = userService.findByGroupId(groupId);
-        List<Turn> turns = new ArrayList<>();
+    // public List<TurnDTO> createTurnsByGroup(Long groupId, TurnDTO turnData) {
+    //     List<UserDTO> usersInGroup = userService.findByGroupId(groupId);
+    //     List<Turn> turns = new ArrayList<>();
 
-        for (UserDTO user : usersInGroup) {
-            Turn turn = TurnMapper.toEntity(turnData);
-            turn.setUserId(user.getId());
-            turn.setUserName(user.getName());
-            turn.setGroupId(groupId);
-            turns.add(turnRepository.save(turn));
-        }
+    //     for (UserDTO user : usersInGroup) {
+    //         Turn turn = TurnMapper.toEntity(turnData);
+    //         turn.setUserId(user.getId());
+    //         turn.setUserName(user.getName());
+    //         turn.setGroupId(groupId);
+    //         turns.add(turnRepository.save(turn));
+    //     }
 
-        return turns.stream().map(TurnMapper::toDTO).collect(Collectors.toList());
-    }
+    //     return turns.stream().map(TurnMapper::toDTO).collect(Collectors.toList());
+    // }
 
     public List<TurnDTO> filterTurns(TurnFilterDTO filter) {
         /*Llama al repositorio con la especificación generada en TurnSpecification,
@@ -94,4 +92,14 @@ public class TurnService {
 
         //return turns.stream().map(TurnMapper::toDTO).collect(Collectors.toList());
     //}
+    public List<TurnDTO> findAllDTOs() {
+        Iterable<Turn> iterable = turnRepository.findAll();
+        List<Turn> turns = new ArrayList<>();
+        iterable.forEach(turns::add);
+        return turns.stream().map(TurnMapper::toDTO).toList();
+    }
+
+    public void deleteById(Long id) {
+        turnRepository.deleteById(id);
+    }
 }
