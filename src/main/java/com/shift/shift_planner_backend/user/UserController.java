@@ -1,34 +1,28 @@
 package com.shift.shift_planner_backend.user;
 
 import com.shift.shift_planner_backend.user.model.UserDTO;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/users")
 public class UserController {
 
     private final UserService userService;
 
-    UserController (UserService userService) {this.userService=userService;}
-
-    @PostMapping("/user")
-    public ResponseEntity<UserDTO>createNormalUser (@RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(userService.createUser(userDTO));
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-
-    @GetMapping("/user")
-    public ResponseEntity<List<UserDTO>> findAllUsers() {
-        List<UserDTO> dtos = userService.findAllDTOs();
-        return ResponseEntity.ok(dtos);
+    @GetMapping
+    public List<UserDTO> getAllUsers() {
+        return userService.findAllDTOs();
     }
 
-    @GetMapping ("/user/byGroup")
-    public ResponseEntity<List<UserDTO>> findUsersByGroup (@RequestParam Long groupId){
-        List<UserDTO>dtos = userService.findByGroupId(groupId);
-        return ResponseEntity.ok(dtos);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
