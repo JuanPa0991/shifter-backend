@@ -1,0 +1,23 @@
+meta {
+  name: TurnosMasivos
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{HOST}}/api/turns/masivo
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "horaInicio": "08:00",
+    "horaFin": "16:00",
+    "fechaInicio": "2025-06-10",
+    "fechaFin": "2025-06-12",
+    "idsUsuarios": [1, 2, 4, 5],
+    "idGrupo": null
+  }
+  
+}

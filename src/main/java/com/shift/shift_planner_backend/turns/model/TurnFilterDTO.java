@@ -3,6 +3,10 @@ package com.shift.shift_planner_backend.turns.model;
 import lombok.*;
 import java.time.LocalDate;
 
+/**
+ * DTO utilizado para filtrar turnos en las consultas.
+ * Contiene campos opcionales que pueden usarse como criterios de búsqueda.
+ */
 @Getter
 @Setter
 @Builder

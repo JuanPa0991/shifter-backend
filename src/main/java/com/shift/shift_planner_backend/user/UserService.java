@@ -7,6 +7,8 @@ import com.shift.shift_planner_backend.user.model.User;
 import com.shift.shift_planner_backend.user.model.UserDTO;
 import com.shift.shift_planner_backend.commons.utils.Utils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,4 +62,11 @@ public class UserService {
         List<User>users = userRepository.findByGroupId(groupId);
         return  UserMapper.toDTOs(users);
     }
+
+    public UserDTO getUserById(Long id) {
+        return userRepository.findById(id)
+                .map(UserMapper::toDTO)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con ID: " + id));
+    }
+
 }
