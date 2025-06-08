@@ -1,0 +1,27 @@
+meta {
+  name: Borrado Filtrado
+  type: http
+  seq: 11
+}
+
+delete {
+  url: {{HOST}}/api/turns/delete
+  body: json
+  auth: inherit
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "userId": 2,
+    "initDate": "2025-06-06",
+    "endDate": "2025-06-08",
+    "initHour": "22:00",
+    "endHour": "06:00"
+  }
+  
+  
+}

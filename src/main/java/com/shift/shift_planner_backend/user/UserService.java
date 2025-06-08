@@ -3,6 +3,8 @@ package com.shift.shift_planner_backend.user;
 import com.shift.shift_planner_backend.user.model.User;
 import com.shift.shift_planner_backend.user.model.UserDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,4 +37,16 @@ public class UserService {
     public void deleteById(Long id) {
         userRepository.deleteById(id);
     }
+
+    public List<UserDTO> findByGroupId (Long groupId) {
+        List<User>users = userRepository.findByGroupId(groupId);
+        return  UserMapper.toDTOs(users);
+    }
+
+    public UserDTO getUserById(Long id) {
+        return userRepository.findById(id)
+                .map(UserMapper::toDTO)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con ID: " + id));
+    }
+
 }

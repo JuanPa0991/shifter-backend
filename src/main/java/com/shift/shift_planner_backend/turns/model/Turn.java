@@ -5,8 +5,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 
+/**
+ * Entidad que representa un turno asignado a un usuario.
+ * Contiene información de fechas, horas, usuario y grupo.
+ */
 @Getter
 @Setter
 @Builder

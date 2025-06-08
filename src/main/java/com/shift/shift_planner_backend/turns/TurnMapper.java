@@ -2,7 +2,9 @@ package com.shift.shift_planner_backend.turns;
 
 import com.shift.shift_planner_backend.turns.model.Turn;
 import com.shift.shift_planner_backend.turns.model.TurnDTO;
-
+/**
+ * Clase utilitaria para convertir entre entidades Turn y sus DTOs correspondientes.
+ */
 public class TurnMapper {
 
     public static Turn toEntity (TurnDTO createTurnDTO) {
