@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("api")
 public class UserController {
 
     private final UserService userService;
@@ -15,12 +15,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/users")
     public List<UserDTO> getAllUsers() {
         return userService.findAllDTOs();
     }
 
-    @DeleteMapping("/{id}")
+    @PostMapping("/user")
+    public ResponseEntity<UserDTO>createNormalUser(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(userService.createUser(userDTO));
+    }
+
+    @DeleteMapping("/user/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();

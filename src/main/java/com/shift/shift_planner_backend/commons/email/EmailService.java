@@ -52,7 +52,7 @@ public class EmailService {
     }
 
     public String getTemplate(EmailTemplate emailTemplate, Map<String, String> replaces) {
-        String templatePath = "classpath:/resources/templates/" + emailTemplate.getTemplateName();
+        String templatePath = "classpath:/templates/" + emailTemplate.getTemplateName();
         Resource resource = resourceLoader.getResource(templatePath);
 
         try (InputStream inputStream = resource.getInputStream();
