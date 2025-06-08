@@ -1,9 +1,8 @@
 package com.shift.shift_planner_backend.user;
 
 import com.shift.shift_planner_backend.user.model.UserDTO;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 @RestController
@@ -12,23 +11,23 @@ public class UserController {
 
     private final UserService userService;
 
-    UserController (UserService userService) {this.userService=userService;}
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping("/users")
+    public List<UserDTO> getAllUsers() {
+        return userService.findAllDTOs();
+    }
 
     @PostMapping("/user")
-    public ResponseEntity<UserDTO>createNormalUser (@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO>createNormalUser(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(userService.createUser(userDTO));
     }
 
-
-    @GetMapping("/user")
-    public ResponseEntity<List<UserDTO>> findAllUsers() {
-        List<UserDTO> dtos = userService.findAllDTOs();
-        return ResponseEntity.ok(dtos);
-    }
-
-    @GetMapping ("/user/byGroup")
-    public ResponseEntity<List<UserDTO>> findUsersByGroup (@RequestParam Long groupId){
-        List<UserDTO>dtos = userService.findByGroupId(groupId);
-        return ResponseEntity.ok(dtos);
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

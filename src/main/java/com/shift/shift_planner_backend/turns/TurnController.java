@@ -5,6 +5,14 @@ import com.shift.shift_planner_backend.turns.model.TurnFilterDTO;
 import com.shift.shift_planner_backend.turns.model.TurnDTO;
 import com.shift.shift_planner_backend.turns.model.TurnoMasivoDTO;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+// import com.shift.shift_planner_backend.turns.model.TurnFilterDTO;
+import com.shift.shift_planner_backend.turns.model.TurnDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,6 +58,17 @@ public class TurnController {
         turnService.deleteAllTurns();
         return ResponseEntity.ok("Todos los turnos han sido eliminados");
     }
+
+    @GetMapping("/turns/all")
+    public List<TurnDTO> getAllTurns() {
+        return turnService.findAllDTOs();
     }
+
+    @DeleteMapping("/turns/{id}")
+    public ResponseEntity<Void> deleteTurn(@PathVariable Long id) {
+        turnService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+}
 
 

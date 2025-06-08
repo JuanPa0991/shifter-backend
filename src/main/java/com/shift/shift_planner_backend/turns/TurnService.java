@@ -7,7 +7,6 @@ import com.shift.shift_planner_backend.turns.model.TurnoMasivoDTO;
 import com.shift.shift_planner_backend.turns.specifications.TurnSpecification;
 import com.shift.shift_planner_backend.user.UserRepository;
 import com.shift.shift_planner_backend.user.UserService;
-import com.shift.shift_planner_backend.user.model.User;
 import com.shift.shift_planner_backend.user.model.UserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -97,11 +96,15 @@ public class TurnService {
      * @return Lista de turnos que cumplen con los criterios
      */
     public List<TurnDTO> filterTurns(TurnFilterDTO filter) {
+        /*Llama al repositorio con la especificación generada en TurnSpecification,
+         aplicando los filtros dinámicos definidos por el usuario.*/
         List<Turn> results = turnRepository.findAll(TurnSpecification.filterBy(filter));
 
+        /* Convierte cada entidad Turn obtenida de la base de datos en un objeto TurnDTO
+        para devolver una lista apta para enviar al frontend.*/
         return results.stream()
-                .map(TurnMapper::toDTO)
-                .collect(Collectors.toList());
+                .map(TurnMapper::toDTO) // Aplica la conversión entidad -> DTO
+                .collect(Collectors.toList()); // Recolecta todo en una lista
     }
 
     /**
@@ -184,6 +187,18 @@ public class TurnService {
                 .build();
     }
 
+        //return turns.stream().map(TurnMapper::toDTO).collect(Collectors.toList());
+    //}
+    public List<TurnDTO> findAllDTOs() {
+        Iterable<Turn> iterable = turnRepository.findAll();
+        List<Turn> turns = new ArrayList<>();
+        iterable.forEach(turns::add);
+        return turns.stream().map(TurnMapper::toDTO).toList();
+    }
+
+    public void deleteById(Long id) {
+        turnRepository.deleteById(id);
+    }
     /**
      * Elimina turnos que coincidan con los filtros especificados.
      * Utiliza especificaciones dinámicas como en el filtrado.
