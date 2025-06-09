@@ -1,0 +1,20 @@
+meta {
+  name: Create turnByGroup
+  type: http
+  seq: 10
+}
+
+post {
+  url: {{HOST}}/api/turn/group/3
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "initDate": "2025-06-10",
+    "endDate": "2025-06-10",
+    "initHour": "09:00",
+    "endHour": "17:00"
+  }
+}

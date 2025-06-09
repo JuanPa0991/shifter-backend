@@ -23,7 +23,12 @@ public class LoginService {
 
         // Aquí se debería de verificar la contraseña e implementar la verificación de contraseña
         // Construye y devuelve la respuesta
-        return LoginResponse.builder().name(user.getName()).token("token-temportal").build();
+        return LoginResponse.builder()
+                .userId(user.getId())
+                .name(user.getName())
+                .token("token-temportal")
+                .isAdmin(user.getIsAdmin())
+                .build();
     }
 
 }

@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor // Genera constructor sin argumentos
 
 public class LoginResponse {
+    private Long userId; // Id del usuario que se devolverá tras un login exitoso
     private String name; // Nombre del usuario que se devolverá tras un login exitoso
     private String token; // Token JWT que se usará para autenticación
+    private Boolean isAdmin; // Indica si el usuario es administrador
 }
