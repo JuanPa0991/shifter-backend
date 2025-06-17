@@ -62,6 +62,7 @@ public class TurnService {
         });
 
         Turn turnMapped = TurnMapper.toEntity((createTurnDTO));
+        turnMapped.setEndDate(turnMapped.getEndDate().plusDays(1));
         Turn saved = turnRepository.save(turnMapped);
 
         return TurnMapper.toDTO(saved);
