@@ -42,9 +42,8 @@ public class TurnController {
     }
 
     @PostMapping("/turns/masivo")
-    public ResponseEntity<?> crearTurnosMasivos(@RequestBody TurnoMasivoDTO dto) {
-        turnService.crearTurnosMasivos(dto);
-        return ResponseEntity.ok("Turnos creados exitosamente");
+    public ResponseEntity<List<TurnDTO>> crearTurnosMasivos(@RequestBody TurnoMasivoDTO dto) {
+        return ResponseEntity.ok(turnService.crearTurnosMasivos(dto));
     }
 
     @DeleteMapping("/turns/delete")

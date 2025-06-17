@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 import static com.shift.shift_planner_backend.util.FechaUtil.obtenerFechasEntre;
@@ -119,51 +120,26 @@ public class TurnService {
      *
      * @param dto Objeto que contiene los datos del turno masivo
      */
-    public void crearTurnosMasivos(TurnoMasivoDTO dto) {
-        List<UserDTO> usuariosDTO;
-
-        // Determina los usuarios a los que se asignarán turnos
-        if (dto.getIdsUsuarios() != null && !dto.getIdsUsuarios().isEmpty()) {
-            usuariosDTO = dto.getIdsUsuarios().stream()
-                    .map(userService::getUserById)
-                    .collect(Collectors.toList());
-        } else if (dto.getIdGrupo() != null) {
-            usuariosDTO = userService.findByGroupId(dto.getIdGrupo());
-        } else {
+    public List<TurnDTO> crearTurnosMasivos(TurnoMasivoDTO dto) {
+        if (dto.getGroupId() == null) {
             throw new RuntimeException("Debe proporcionar IDs de usuarios o un ID de grupo.");
         }
 
-        boolean cruzaNoche = dto.getHoraFin().isBefore(dto.getHoraInicio());
+        List<UserDTO> usuariosDTO = userService.findByGroupId(dto.getGroupId());
+        boolean cruzaNoche = dto.getEndHour().isBefore(dto.getInitHour());
+        LocalDate fechaInicio = dto.getInitDate();
+        AtomicReference<LocalDate> fechaFin = new AtomicReference<>(dto.getEndDate());
 
         // Caso 1: Turno que cruza medianoche en un solo día (ej. 06/06, 22:00–06:00)
-        if (dto.getFechaInicio().equals(dto.getFechaFin()) && cruzaNoche) {
-            for (UserDTO user : usuariosDTO) {
-                Turn turno = buildTurn(user, dto.getFechaInicio(), dto.getFechaInicio().plusDays(1), dto);
-                turnRepository.save(turno);
-            }
+        if (dto.getInitDate().equals(dto.getEndDate()) && cruzaNoche) {
+            fechaFin.set(dto.getInitDate().plusDays(1));
         }
-
-        // Caso 2: Turnos que cruzan noche por varios días (ej. 06/06–08/06, 22:00–06:00)
-        else if (dto.getFechaInicio().isBefore(dto.getFechaFin()) && cruzaNoche) {
-            List<LocalDate> fechas = obtenerFechasEntre(dto.getFechaInicio(), dto.getFechaFin());
-            for (UserDTO user : usuariosDTO) {
-                for (LocalDate fecha : fechas) {
-                    Turn turno = buildTurn(user, fecha, fecha.plusDays(1), dto);
-                    turnRepository.save(turno);
-                }
-            }
-        }
-
-        // Caso 3: Turnos normales dentro del mismo día
-        else {
-            List<LocalDate> fechas = obtenerFechasEntre(dto.getFechaInicio(), dto.getFechaFin());
-            for (UserDTO user : usuariosDTO) {
-                for (LocalDate fecha : fechas) {
-                    Turn turno = buildTurn(user, fecha, fecha, dto);
-                    turnRepository.save(turno);
-                }
-            }
-        }
+        fechaFin.set(fechaFin.get().plusDays(1));
+        return usuariosDTO.stream()
+                .map(user -> buildTurn(user, fechaInicio, fechaFin.get(), dto))
+                .map(turnRepository::save)
+                .map(TurnMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -182,8 +158,8 @@ public class TurnService {
                 .groupId(user.getGroupId())
                 .initDate(initDate)
                 .endDate(endDate)
-                .initHour(dto.getHoraInicio().toString())
-                .endHour(dto.getHoraFin().toString())
+                .initHour(dto.getInitHour().toString())
+                .endHour(dto.getEndHour().toString())
                 .build();
     }
 

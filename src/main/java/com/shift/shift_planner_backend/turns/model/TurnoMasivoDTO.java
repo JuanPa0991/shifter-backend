@@ -17,10 +17,9 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class TurnoMasivoDTO {
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
-    private List<Long> idsUsuarios; // Lista de IDs de usuarios
-    private Long idGrupo;
+    private LocalTime initHour;
+    private LocalTime endHour;
+    private LocalDate initDate;
+    private LocalDate endDate;
+    private Long groupId;
 }
